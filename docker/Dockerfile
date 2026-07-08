@@ -2,8 +2,8 @@ FROM osrf/ros:noetic-desktop-full
 FROM nvidia/opengl:1.2-glvnd-runtime-ubuntu20.04
 
 # GPU support
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES graphics,utility,compute
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=graphics,utility,compute
 ###################  first system wide configuration ###################################
 # change timezone (this is very important otherwise many ROS topic time will be strange)
 # TODO: please modify it to your timezone accordingly
@@ -104,8 +104,8 @@ RUN apt-get update -y && apt-get install gcc g++ gfortran git cmake liblapack-de
     && make -j$(nproc) \
     && make install
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # ocs2
 RUN apt-get update -y && apt-get install git -y \
@@ -145,7 +145,7 @@ RUN apt-get update -q \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 # ENV MUJOCO_NET https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
 RUN mkdir -p /root/.mujoco \
     && wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz -O mujoco.tar.gz \
