@@ -1,0 +1,55 @@
+name: kuavo_master
+
+services:
+  master:
+    image: kuavo_opensource_mpc_wbc_img:0.6.1
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        HTTP_PROXY: "http://127.0.0.1:7897"
+        HTTPS_PROXY: "http://127.0.0.1:7897"
+        NO_PROXY: "localhost,127.0.0.1,::1"
+      network: host
+
+    network_mode: host
+    privileged: true
+
+    group_add:
+      - dialout
+
+    ulimits:
+      rtprio:
+        soft: 99
+        hard: 99
+
+    cap_add:
+      - SYS_NICE
+    
+    stdin_open: true
+    tty: true
+
+    shm_size: "2gb"
+
+    environment:
+      ROBOT_VERSION: "45"
+      NVIDIA_DRIVER_CAPABILITIES: "all"
+      DISPLAY: "${DISPLAY:-:0}"
+      CARB_GRAPHICS_API: "vulkan"
+      GDK_SYNCHRONIZE: "1"
+
+    volumes:
+      - "/dev:/dev"
+      - "../:/root/kuavo_ws"
+      - "${HOME}/.ros:/root/.ros"
+      - "${HOME}/.ccache:/root/.ccache"
+      - "${HOME}/.config/lejuconfig:/root/.config/lejuconfig"
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
