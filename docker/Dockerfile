@@ -189,6 +189,13 @@ RUN apt clean && apt autoclean
 RUN echo 'export LD_LIBRARY_PATH=/opt/drake/lib/:$LD_LIBRARY_PATH' >> /root/.bashrc \
     && echo 'export LD_LIBRARY_PATH=/opt/drake/lib/:$LD_LIBRARY_PATH' >> /root/.zshrc
 
+
+RUN echo "source /root/kuavo_ws/installed/setup.zsh" >> /root/.zshrc \
+    && echo "alias kvconfig='catkin config -DCMAKE_ASM_COMPILER=/usr/bin/as -DCMAKE_BUILD_TYPE=Release'" >> /root/.zshrc \
+    && echo "alias kvsrc='source /root/kuavo_ws/devel/setup.zsh'" >> /root/.zshrc \
+    && echo "export DISABLE_ROS1_EOL_WARNINGS=1" >> /root/.zshrc
+
+
 # set default shell to zsh
 RUN chsh -s $(which zsh) 
 WORKDIR /root/kuavo_ws
