@@ -1,7 +1,10 @@
-.PHONY: build xhostallow up down start stop restart
+.PHONY: build buildx xhostallow up down start stop restart
 
 build:
 	docker compose build
+
+buildx:
+	docker buildx bake -f docker-compose.yml --allow=network.host --load
 
 xhostallow:
 	export DISPLAY="$${DISPLAY:-:0}" && xhost +
