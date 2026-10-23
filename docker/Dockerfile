@@ -190,9 +190,12 @@ RUN echo 'export LD_LIBRARY_PATH=/opt/drake/lib/:$LD_LIBRARY_PATH' >> /root/.bas
     && echo 'export LD_LIBRARY_PATH=/opt/drake/lib/:$LD_LIBRARY_PATH' >> /root/.zshrc
 
 
-RUN echo "source /root/kuavo_ws/installed/setup.zsh" >> /root/.zshrc \
-    && echo "alias kvconfig='catkin config -DCMAKE_ASM_COMPILER=/usr/bin/as -DCMAKE_BUILD_TYPE=Release'" >> /root/.zshrc \
+RUN echo "alias kvconfig='catkin config -DCMAKE_ASM_COMPILER=/usr/bin/as -DCMAKE_BUILD_TYPE=Release'" >> /root/.zshrc \
+    && echo "alias kvsrci='source /root/kuavo_ws/installed/setup.zsh'" >> /root/.zshrc \
     && echo "alias kvsrc='source /root/kuavo_ws/devel/setup.zsh'" >> /root/.zshrc \
+    && echo "alias kvbuild='catkin build humanoid_controllers'" >> /root/.zshrc \
+    && echo "alias kvbuild1='kvbuild -j 1'" >> /root/.zshrc \
+    && echo "alias kvclean='catkin clean'" >> /root/.zshrc \
     && echo "export DISABLE_ROS1_EOL_WARNINGS=1" >> /root/.zshrc
 
 

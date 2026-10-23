@@ -1,4 +1,4 @@
-.PHONY: build xhostallow up down
+.PHONY: build xhostallow up down start stop restart
 
 build:
 	docker compose build
@@ -11,3 +11,12 @@ up: xhostallow
 
 down:
 	docker compose down
+
+start:
+	docker compose start
+
+stop:
+	docker compose stop
+
+restart:
+	docker compose restart
